@@ -8,19 +8,14 @@ let timerId= null;
 
 // Доступ до інпута 
 const inputRef = document.querySelector("input");
-console.log(inputRef);
+
 
 // Доступу до кнопки старт Start
 const btnStart = document.querySelector(`button[data-start]`);
-// console.log(btnStart);
 btnStart.setAttribute('disabled', true);
 
 // Доступ до годинника { days, hours, minutes, seconds };
-const timerRef = document.querySelector(".timer");
-// console.dir(timerRef);
-
 const daysRef = document.querySelector('[data-days]');
-// console.dir(daysRef.textContent);
 const hoursRef = document.querySelector('[data-hours]');
 const minutesRef = document.querySelector('[data-minutes]');
 const secondsRef = document.querySelector('[data-seconds]');
@@ -41,12 +36,10 @@ btnStart.addEventListener('click', hanlerClick);
 function hanlerClick() {
   btnStart.setAttribute('disabled', true);
   inputRef.setAttribute('disabled', true);
-  console.log(inputRef);
 
   timerId = setInterval(() => {
   let delta = selectedTime - Date.now();
     data = convertMs(delta)
-   console.log(data);
    getTime(data)
       // Таймер повинен зупинятися, коли дійшов до кінцевої дати, тобто 00:00:00:00.
       if (delta <= 1000) {
@@ -65,29 +58,24 @@ flatpickr('#datetime-picker', {
     selectedTime = selectedDates[0];
     // Отримуємо час який є зараз
     let now = new Date().getTime();
-    // console.log(now);
     // дата яку вибрав користувач
     let dateByUser = new Date(selectedDates).getTime();
-    // console.log(dateByUser);
-    
+   
  // / відстань між теперішнім і датою зворотного відліку
  let ms = dateByUser - now;
-//  console.log(ms);
+
     // Умова запуску таймера
     if (dateByUser <= now) {
       Notiflix.Notify.warning('Please choose a date in the future');
-      // return alert('Please choose a date in the future');
     } else {
       btnStart.removeAttribute('disabled', false);
     }
   },
 });
-// console.log(flatpickr);
 
 
 
-function convertMs() {
-  flatpickr()
+function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
