@@ -1,6 +1,6 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
-
+import Notiflix from 'notiflix';
 
 
 let selectedTime = null;
@@ -75,7 +75,8 @@ flatpickr('#datetime-picker', {
 //  console.log(ms);
     // Умова запуску таймера
     if (dateByUser <= now) {
-      return window.alert('Please choose a date in the future');
+      Notiflix.Notify.warning('Please choose a date in the future');
+      // return alert('Please choose a date in the future');
     } else {
       btnStart.removeAttribute('disabled', false);
     }
@@ -83,8 +84,10 @@ flatpickr('#datetime-picker', {
 });
 // console.log(flatpickr);
 
-function convertMs(ms) {
 
+
+function convertMs() {
+  flatpickr()
   // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
