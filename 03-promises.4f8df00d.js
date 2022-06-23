@@ -1,0 +1,2 @@
+document.querySelector(".form").addEventListener("submit",(function(e){e.preventDefault();var t=e.currentTarget.elements,n=t.delay,c=t.step,o=t.amount.value;c.value,n.value,function(e,t){Math.random()>.3&&setTimeout((function(){isSuccess?Fulfill("✅ Fulfilled promise ".concat(e," in ").concat(t,"ms")):Reject("❌ Rejected promise ".concat(e," in ").concat(t,"ms"))}),t)}(position,n),e.currentTarget.reset();for(var r=0;r<o;r+=1);}));
+//# sourceMappingURL=03-promises.4f8df00d.js.map

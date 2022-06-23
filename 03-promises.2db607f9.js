@@ -1,0 +1,2 @@
+document.querySelector(".form").addEventListener("submit",(function(e){e.preventDefault();const{elements:{delay:t,step:n,amount:r}}=e.currentTarget,u=r.value;n.value,t.value;(function(e,t){Math.random()>.3&&setTimeout((()=>{isSuccess?Fulfill(`✅ Fulfilled promise ${e} in ${t}ms`):Reject(`❌ Rejected promise ${e} in ${t}ms`)}),t)})(position,t),e.currentTarget.reset();for(let e=0;e<u;e+=1);}));
+//# sourceMappingURL=03-promises.2db607f9.js.map
