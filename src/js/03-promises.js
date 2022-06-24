@@ -1,3 +1,5 @@
+import Notiflix from 'notiflix';
+
 // Доступ до форми
 const formRef = document.querySelector('.form');
 // const btnRef = document.querySelector("button")
@@ -10,48 +12,40 @@ function hanlesubmit(event) {
     elements: { delay, step, amount },
   } = event.currentTarget;
   // console.log(event.currentTarget);
-  //  викликає функцію  стільки разів, скільки ввели в поле amount
-  const amountEl = amount.value;
-  // Під час кожного виклику передай їй номер промісу (position),
-  //  що створюється, і затримку, враховуючи першу затримку (delay), введену користувачем, і крок (step).
-  const stepEl = step.value;
-  const delayEl = delay.value;
-
-  createPromise(position, delay);
+  let amountEl = Number(amount.value);
+  // 1.Delay step (ms) крок
+  let stepEl = Number(step.value);
+  // First delay (ms) затримка
+  let delayEl = Number(delay.value);
 
   event.currentTarget.reset();
 
-  for(let i=0; i<amountEl; i+=1) {
-    
-  }
-
-}
-
-function createPromise(position, delay) {
-  const shouldResolve = Math.random() > 0.3;
-
-  if (shouldResolve) {
+  // Цикл
+  for (
+    let position = 1, delay=delayEl;
+    position <= amountEl;
+    position += 1, delay += stepEl
+  ) {
     setTimeout(() => {
-      if (isSuccess) {
-        Fulfill (`✅ Fulfilled promise ${position} in ${delay}ms`);
-      } else {
-        Reject (`❌ Rejected promise ${position} in ${delay}ms`);
-      }
+      createPromise(position, delay)
+        .then(({ position, delay }) => {
+          Notiflix.Notify.warning(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        })
+        .catch(({ position, delay }) => {
+          Notiflix.Notify.warning(`❌ Rejected promise ${position} in ${delay}ms`);
+        });
     }, delay);
   }
 }
 
 
-// if (shouldResolve) {
-//   // Fulfill
-// } else {
-//   // Reject
-// }
-
-// createPromise(2, 1500)
-//   .then(({ position, delay }) => {
-//     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-//   })
-//   .catch(({ position, delay }) => {
-//     console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-//   });
+function createPromise(position, delay) {
+  return new Promise((resolve, reject) => {
+    const shouldResolve = Math.random() > 0.3;
+    if (shouldResolve) {
+      resolve({ position, delay });
+    } else {
+      reject({ position, delay });
+    }
+  });
+}
