@@ -2,13 +2,11 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 
-
 let selectedTime = null;
-let timerId= null;
+let timerId = null;
 
-// Доступ до інпута 
-const inputRef = document.querySelector("input");
-
+// Доступ до інпута
+const inputRef = document.querySelector('input');
 
 // Доступу до кнопки старт Start
 const btnStart = document.querySelector(`button[data-start]`);
@@ -22,12 +20,11 @@ const secondsRef = document.querySelector('[data-seconds]');
 
 // Фукція для передачі
 function getTime({ days, hours, minutes, seconds }) {
-   daysRef.textContent = days;
-   hoursRef.textContent = hours;
-   minutesRef.textContent = minutes;
-   secondsRef. textContent = seconds;
+  daysRef.textContent = days;
+  hoursRef.textContent = hours;
+  minutesRef.textContent = minutes;
+  secondsRef.textContent = seconds;
 }
-
 
 // Слухач на Start
 btnStart.addEventListener('click', hanlerClick);
@@ -38,16 +35,15 @@ function hanlerClick() {
   inputRef.setAttribute('disabled', true);
 
   timerId = setInterval(() => {
-  let delta = selectedTime - Date.now();
-    data = convertMs(delta)
-   getTime(data)
-      // Таймер повинен зупинятися, коли дійшов до кінцевої дати, тобто 00:00:00:00.
-      if (delta <= 1000) {
-        clearInterval(timerId);
-      }
-    }, 1000);
-  }
-
+    let delta = selectedTime - Date.now();
+    let data = convertMs(delta);
+    getTime(data);
+    // Таймер повинен зупинятися, коли дійшов до кінцевої дати, тобто 00:00:00:00.
+    if (delta <= 1000) {
+      clearInterval(timerId);
+    }
+  }, 1000);
+}
 
 flatpickr('#datetime-picker', {
   enableTime: true,
@@ -60,9 +56,9 @@ flatpickr('#datetime-picker', {
     let now = new Date().getTime();
     // дата яку вибрав користувач
     let dateByUser = new Date(selectedDates).getTime();
-   
- // / відстань між теперішнім і датою зворотного відліку
- let ms = dateByUser - now;
+
+    // / відстань між теперішнім і датою зворотного відліку
+    let ms = dateByUser - now;
 
     // Умова запуску таймера
     if (dateByUser <= now) {
@@ -72,8 +68,6 @@ flatpickr('#datetime-picker', {
     }
   },
 });
-
-
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -89,14 +83,15 @@ function convertMs(ms) {
   // Remaining minutes
   const minutes = addLeadingZero(Math.floor(((ms % day) % hour) / minute));
   // Remaining seconds
-  const seconds = addLeadingZero(Math.floor((((ms % day) % hour) % minute) / second));
+  const seconds = addLeadingZero(
+    Math.floor((((ms % day) % hour) % minute) / second)
+  );
 
   return { days, hours, minutes, seconds };
 }
 
-//Функція addLeadingZero(value), яка використовує метод padStart() 
+//Функція addLeadingZero(value), яка використовує метод padStart()
 // і перед рендерингом інтефрейсу форматує значення.
- function addLeadingZero(value) {
-   return String(value).padStart(2, `0`);
+function addLeadingZero(value) {
+  return String(value).padStart(2, `0`);
 }
-
