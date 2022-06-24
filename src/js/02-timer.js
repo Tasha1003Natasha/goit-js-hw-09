@@ -66,7 +66,7 @@ flatpickr('#datetime-picker', {
 
     // Умова запуску таймера
     if (dateByUser <= now) {
-      Notiflix.Notify.warning('Please choose a date in the future');
+      Notiflix.Notify.failure('Please choose a date in the future');
     } else {
       btnStart.removeAttribute('disabled', false);
     }
